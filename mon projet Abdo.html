@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maroc News - Les dernières actualités du Royaume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #c2272d;
+            --secondary: #006233;
+            --accent: #d4af37;
+            --dark: #1a1a1a;
+            --light: #f8f8f8;
+            --text: #333333;
+            --gray: #6c757d;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .date-display {
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+        }
+
+        .main-nav {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-nav li {
+            position: relative;
+        }
+
+        .main-nav a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary);
+            background-color: #f9f9f9;
+        }
+
+        .main-nav a.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            width: 250px;
+            transition: width 0.3s;
+        }
+
+        .search-bar input:focus {
+            width: 300px;
+            border-color: var(--primary);
+        }
+
+        .search-bar button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #a02025;
+        }
+
+        /* Breaking News */
+        .breaking-news {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .breaking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .breaking-label {
+            background-color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 15px;
+            white-space: nowrap;
+        }
+
+        .news-ticker {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            height: 24px;
+        }
+
+        .ticker-content {
+            position: absolute;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: #f1f1f1;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            background: #e1e1e1;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            background: #f1f1f1;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Featured News */
+        .featured-news {
+            grid-column: 1 / -1;
+            margin-bottom: 30px;
+        }
+
+        .featured-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .main-featured {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1594736797933-d0e03138d6a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+        }
+
+        .featured-badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .main-featured h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .main-featured p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .main-featured .meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .secondary-featured {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .secondary-news {
+            flex: 1;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .secondary-news:hover {
+            background: #f9f9f9;
+        }
+
+        .secondary-news:last-child {
+            border-bottom: none;
+        }
+
+        .secondary-news h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .secondary-news .meta {
+            font-size: 0.8rem;
+            color: #777;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* News Grid */
+        .news-content {
+            grid-column: 1;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .news-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .news-card.list-view {
+            flex-direction: row;
+            height: 200px;
+        }
+
+        .news-card.list-view .news-image {
+            width: 250px;
+            height: 100%;
+        }
+
+        .news-card.list-view .news-content {
+            flex: 1;
+        }
+
+        .news-image {
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .news-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-category {
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .news-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .news-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: auto;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 5px;
+        }
+
+        .pagination button {
+            padding: 8px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover {
+            background: #f1f1f1;
+        }
+
+        .pagination button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-section h2 {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--dark);
+        }
+
+        .weather-widget {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .weather-widget i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .temperature {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .weather-desc {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .weather-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .weather-location i {
+            font-size: 1rem;
+            margin-right: 5px;
+            margin-bottom: 0;
+        }
+
+        .trending-list {
+            list-style: none;
+        }
+
+        .trending-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .trending-list li:hover {
+            background: #f9f9f9;
+        }
+
+        .trending-list li:last-child {
+            border-bottom: none;
+        }
+
+        .trending-list a {
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+        }
+
+        .trending-list a:hover {
+            color: var(--primary);
+        }
+
+        .trending-number {
+            background: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #333;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            
+            .search-bar {
+                margin-top: 0;
+                justify-content: center;
+            }
+            
+            .search-bar input {
+                width: 100%;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-card.list-view {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .news-card.list-view .news-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-newspaper"></i>
+                <div>
+                    <h1>Maroc News</h1>
+                    <span>Les dernières actualités du Royaume</span>
+                </div>
+            </a>
+            <div class="date-display">
+                <i class="far fa-calendar-alt"></i> 
+                <span id="current-date">Lundi 15 Janvier 2024</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <ul class="main-nav">
+                <li><a href="#" class="active" data-filter="all">Accueil</a></li>
+                <li><a href="#" data-filter="politique">Politique</a></li>
+                <li><a href="#" data-filter="economie">Économie</a></li>
+                <li><a href="#" data-filter="societe">Société</a></li>
+                <li><a href="#" data-filter="sports">Sports</a></li>
+                <li><a href="#" data-filter="culture">Culture</a></li>
+                <li><a href="#" data-filter="international">International</a></li>
+                <li><a href="#" data-filter="regions">Régions</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Rechercher...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breaking News -->
+    <div class="breaking-news">
+        <div class="breaking-container">
+            <div class="breaking-label">À la une</div>
+            <div class="news-ticker">
+                <div class="ticker-content">
+                    <strong>BREAKING:</strong> Le Maroc et l'Espagne renforcent leur coopération économique - Le Roi préside la cérémonie de signature de plusieurs accords bilatéraux - La croissance économique marocaine dépasse les prévisions pour 2024
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-container">
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="politique">Politique</button>
+                <button class="filter-btn" data-filter="economie">Économie</button>
+                <button class="filter-btn" data-filter="societe">Société</button>
+                <button class="filter-btn" data-filter="sports">Sports</button>
+                <button class="filter-btn" data-filter="culture">Culture</button>
+                <button class="filter-btn" data-filter="international">International</button>
+                <button class="filter-btn" data-filter="regions">Régions</button>
+            </div>
+            <div class="view-options">
+                <button class="view-btn active" data-view="grid"><i class="fas fa-th-large"></i></button>
+                <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Featured News -->
+        <section class="featured-news">
+            <div class="featured-container">
+                <div class="main-featured">
+                    <span class="featured-badge">Exclusif</span>
+                    <h2>Le Plan Maroc Vert atteint ses objectifs avec une croissance de 25% dans le secteur agricole</h2>
+                    <p>Le ministre de l'Agriculture annonce des résultats exceptionnels pour la campagne agricole 2023-2024 malgré les défis climatiques.</p>
+                    <div class="meta">
+                        <span><i class="far fa-clock"></i> Il y a 2 heures</span>
+                        <span><i class="far fa-eye"></i> 15.4K vues</span>
+                        <span><i class="far fa-comment"></i> 243 commentaires</span>
+                    </div>
+                </div>
+                <div class="secondary-featured">
+                    <div class="secondary-news" data-id="1">
+                        <h3>Lancement du nouveau programme social "RAMED+" pour étendre la couverture médicale</h3>
+                        <div class="meta">
+                            <i class="far fa-clock"></i> Il y a 4 heures
+                        </div>
+                    </div>
+                    <div class="secondary-news" data-id="2">
+                        <h3>Tourisme : Le Maroc dépasse les 15 millions de visiteurs en 2023</h3>
+                        <div class="meta">
+                            <i class="far fa-clock"></i> Il y a 6 heures
+                        </div>
+                    </div>
+                    <div class="secondary-news" data-id="3">
+                        <h3>Casablanca Finance City attire 50 nouvelles entreprises internationales</h3>
+                        <div class="meta">
+                            <i class="far fa-clock"></i> Il y a 1 jour
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Grid -->
+        <section class="news-content">
+            <div class="news-grid" id="news-grid">
+                <!-- Les articles seront générés par JavaScript -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- La pagination sera générée par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="weather-widget">
+                <i class="fas fa-sun" id="weather-icon"></i>
+                <div class="temperature" id="temperature">24°C</div>
+                <div class="weather-desc" id="weather-desc">Ensoleillé</div>
+                <div class="weather-location">
+                    <i class="fas fa-map-marker-alt"></i> Rabat, Maroc
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Trending</h2>
+                <ul class="trending-list" id="trending-list">
+                    <!-- Les tendances seront générées par JavaScript -->
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Newsletters</h2>
+                <p>Abonnez-vous à notre newsletter pour recevoir les dernières actualités</p>
+                <div style="margin-top: 15px;">
+                    <input type="email" id="newsletter-email" placeholder="Votre email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 10px;">
+                    <button id="subscribe-btn" style="width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">S'abonner</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Statistiques</h2>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div>
+                        <span>Articles aujourd'hui: </span>
+                        <strong id="articles-today">28</strong>
+                    </div>
+                    <div>
+                        <span>Lecteurs en ligne: </span>
+                        <strong id="online-readers">1,243</strong>
+                    </div>
+                    <div>
+                        <span>Articles ce mois: </span>
+                        <strong id="articles-month">856</strong>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Modal pour lire un article -->
+    <div class="modal" id="article-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Le contenu de l'article sera inséré ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Maroc News</h3>
+                <p>Votre source d'information fiable sur les actualités marocaines et internationales.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Catégories</h3>
+                <ul class="footer-links">
+                    <li><a href="#" data-filter="politique">Politique</a></li>
+                    <li><a href="#" data-filter="economie">Économie</a></li>
+                    <li><a href="#" data-filter="societe">Société</a></li>
+                    <li><a href="#" data-filter="sports">Sports</a></li>
+                    <li><a href="#" data-filter="culture">Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Entreprise</h3>
+                <ul class="footer-links">
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Équipe</a></li>
+                    <li><a href="#">Carrières</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Publicité</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Légal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Maroc News. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script>
+        // Données des articles (plus de 25 articles)
+        const articles = [
+            // Politique
+            { id: 1, category: "politique", title: "Le Parlement adopte le projet de loi sur la réforme du système éducatif", 
+              content: "La nouvelle réforme vise à améliorer la qualité de l'enseignement et à renforcer l'employabilité des diplômés. Le ministre de l'Éducation a présenté les grandes lignes de cette réforme qui sera mise en place progressivement sur 5 ans.",
+              image: "https://f2.hespress.com/wp-content/uploads/2025/08/Conseil-de-gouvernement-enseignement.jpeg",
+              date: "Il y a 3 heures", views: "12.5K", comments: 87, trending: true },
+            
+            { id: 2, category: "politique", title: "Discours royal à l'occasion de la Fête du Trône", 
+              content: "Dans son discours, le Roi a souligné les réalisations du Royaume et les défis à relever. Il a également annoncé de nouvelles initiatives pour le développement social et économique.",
+              image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStv7_ed5XdQnmgd5r_SJouYNqF8q_EV2Yw3Q&s",
+              date: "Il y a 1 jour", views: "45.2K", comments: 324, trending: true },
+            
+            { id: 3, category: "politique", title: "Le Maroc élu à la présidence de l'Union Africaine", 
+              content: "Le Maroc a été élu à la présidence tournante de l'Union Africaine pour l'année 2024. Cette élection consolide la position du Royaume sur la scène continentale.",
+              image: "https://f2.hespress.com/wp-content/uploads/2019/01/Union-africaine-e1547203846883-900x600.jpg",
+              date: "Il y a 2 jours", views: "28.7K", comments: 156 },
+            
+            // Économie
+            { id: 4, category: "economie", title: "La Bourse de Casablanca enregistre une hausse historique", 
+              content: "L'indice MASI gagne 3,2% porté par les performances du secteur bancaire et des télécommunications. Les analystes prévoient une continuation de cette tendance positive.",
+              image: "https://leseco.ma/wp-content/uploads/2024/10/Bourse-de-Casablanca.jpeg",
+              date: "Il y a 7 heures", views: "8.9K", comments: 54 },
+            
+            { id: 5, category: "economie", title: "Investissement record dans les énergies renouvelables", 
+              content: "Le Maroc investit 5 milliards de dirhams dans de nouveaux projets solaires et éoliens. Ces investissements visent à porter la part des énergies renouvelables à 52% d'ici 2030.",
+              image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 10 heures", views: "7.2K", comments: 42 },
+            
+            { id: 6, category: "economie", title: "Exportations agricoles : nouveau record à 85 milliards de dirhams", 
+              content: "Les exportations agricoles marocaines ont atteint un niveau historique grâce à la diversification des marchés et l'amélioration de la qualité des produits.",
+              image: "https://images.unsplash.com/photo-1505253668822-42074d58a7c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 1 jour", views: "9.8K", comments: 67 },
+            
+            { id: 7, category: "economie", title: "Lancement de la nouvelle zone industrielle à Tanger", 
+              content: "Une nouvelle zone industrielle de 200 hectares vient d'être inaugurée à Tanger. Elle devrait créer plus de 10 000 emplois directs.",
+              image: "https://fr.le360.ma/resizer/v2/https%3A%2F%2Fcloudfront-eu-central-1.images.arcpublishing.com%2Fle360%2FO7PRAQYKSRAXHIGL575CYM67MY.jpeg?auth=dbccc79844ad3f5188fbb875c8bc2b799097a0631c00be4611525fa75021a117&width=1216",
+              date: "Il y a 2 jours", views: "6.5K", comments: 38 },
+            
+            // Société
+            { id: 8, category: "societe", title: "Lutte contre la sécheresse : Les nouvelles technologies au service de l'agriculture", 
+              content: "Des startups marocaines développent des solutions innovantes pour optimiser l'utilisation de l'eau. Ces technologies permettent d'économiser jusqu'à 40% de la consommation d'eau.",
+              image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 12 heures", views: "11.3K", comments: 76, trending: true },
+            
+            { id: 9, category: "societe", title: "Lancement du programme national de digitalisation des services publics", 
+              content: "Le gouvernement lance un vaste programme pour digitaliser l'ensemble des services publics d'ici 2026. L'objectif est de simplifier les démarches administratives.",
+              image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 1 jour", views: "14.2K", comments: 92 },
+            
+            { id: 10, category: "societe", title: "Nouveau plan de lutte contre la précarité", 
+              content: "Le gouvernement dévoile un plan quinquennal de 10 milliards de dirhams pour lutter contre la précarité. Ce plan vise à améliorer les conditions de vie de plus de 500 000 familles.",
+              image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 2 jours", views: "18.7K", comments: 145 },
+            
+            { id: 11, category: "societe", title: "Réforme du système de santé : les détails du plan 2024-2028", 
+              content: "Le ministre de la Santé présente les grandes lignes de la réforme du système de santé. L'objectif est d'améliorer l'accès aux soins et la qualité des services.",
+              image: "https://medias24.com/content/uploads/2025/07/22/tahraoui-au-parlement-1024x576.jpg.webp",
+              date: "Il y a 3 jours", views: "22.4K", comments: 187, trending: true },
+            
+            // Sports
+            { id: 12, category: "sports", title: "L'équipe nationale de football se prépare pour la CAN 2024", 
+              content: "Les Lions de l'Atlas entament leur stage de préparation avec de nouveaux talents prometteurs. L'entraîneur a dévoilé sa liste préliminaire de 35 joueurs.",
+              image: "https://fr.aldar.ma/wp-content/uploads/2024/01/medium_2024-01-11-aa1ad55794.jpg",
+              date: "Il y a 5 heures", views: "25.8K", comments: 142, trending: true },
+            
+            { id: 13, category: "sports", title: "Maroc : médaille d'or aux Championnats d'Afrique d'athlétisme", 
+              content: "L'athlète marocain remporte la médaille d'or du 1500m aux Championnats d'Afrique. C'est la troisième médaille d'or pour le Maroc lors de cette compétition.",
+              image: "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 1 jour", views: "19.3K", comments: 89 },
+            
+            { id: 14, category: "sports", title: "Le Raja de Casablanca champion de la ligue des champions arabe", 
+              content: "Le Raja de Casablanca remporte la ligue des champions arabe après une finale haletante. C'est le troisième titre continental pour le club cette saison.",
+              image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 2 jours", views: "32.7K", comments: 234 },
+            
+            { id: 15, category: "sports", title: "Le Maroc organise les Jeux Méditerranéens 2027", 
+              content: "Le Maroc a été choisi pour organiser les Jeux Méditerranéens de 2027. C'est la première fois que le pays accueille cette compétition multisports.",
+              image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 3 jours", views: "15.6K", comments: 76 },
+            
+            // Culture
+            { id: 16, category: "culture", title: "Le Festival des Musiques Sacrées de Fès annonce sa programmation 2024", 
+              content: "L'événement culturel majeur célébrera sa 28ème édition avec des artistes venus des cinq continents. Le thème de cette année est 'L'Art du Vivre Ensemble'.",
+              image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 9 heures", views: "7.8K", comments: 31 },
+            
+            { id: 17, category: "culture", title: "Exposition exceptionnelle d'art contemporain marocain au Louvre", 
+              content: "Une exposition consacrée à l'art contemporain marocain ouvrira ses portes au Louvre en septembre 2024. Plus de 100 œuvres seront présentées.",
+              image: "https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 1 jour", views: "6.2K", comments: 28 },
+            
+            { id: 18, category: "culture", title: "Le film marocain primé au Festival de Cannes", 
+              content: "Le film marocain 'Les Voix du désert' a remporté le prix du meilleur scénario au Festival de Cannes. C'est une reconnaissance internationale pour le cinéma marocain.",
+              image: "https://static.lematin.ma/files/lematin/images/articles/2023/05/e92673f4e7b46d78cd65187d303e9c2c.jpg",
+              date: "Il y a 2 jours", views: "11.4K", comments: 63 },
+            
+            { id: 19, category: "culture", title: "Inauguration du nouveau Musée d'Art Moderne de Marrakech", 
+              content: "Le nouveau Musée d'Art Moderne de Marrakech ouvrira ses portes en octobre 2024. Il abritera une collection permanente de plus de 500 œuvres.",
+              image: "https://latribunedemarrakech.com/wp-content/uploads/2023/11/Welcome-Home-Vol.-II-MACAAL-2020-C.-Ayoub-El-Bardii-5-1200x800.jpg",
+              date: "Il y a 3 jours", views: "8.9K", comments: 45 },
+            
+            // International
+            { id: 20, category: "international", title: "Le Maroc élu membre du Conseil de Sécurité de l'ONU pour 2025-2026", 
+              content: "Une reconnaissance internationale du rôle croissant du Royaume dans la diplomatie mondiale. Le Maroc siégera au Conseil de Sécurité pour la 4ème fois de son histoire.",
+              image: "https://medias24.com/content/uploads/2025/06/04/IMG_2770.jpeg.webp",
+              date: "Il y a 1 jour", views: "23.8K", comments: 189, trending: true },
+            
+            { id: 21, category: "international", title: "Sommet Maroc-UE : signature de nouvel accord de partenariat", 
+              content: "Le Maroc et l'Union européenne ont signé un nouvel accord de partenariat renforcé. Cet accord couvre les domaines économique, sécuritaire et migratoire.",
+              image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 2 jours", views: "16.7K", comments: 94 },
+            
+            { id: 22, category: "international", title: "Le Maroc médiateur dans le conflit en Libye", 
+              content: "Le Maroc accueille une nouvelle série de pourparlers de paix entre les factions libyennes. Cette médiation renforce le rôle diplomatique du Royaume en Afrique.",
+              image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 3 jours", views: "12.3K", comments: 67 },
+            
+            // Régions
+            { id: 23, category: "regions", title: "Lancement du projet de tramway à Agadir", 
+              content: "La ville d'Agadir lancera son projet de tramway en 2024. Ce projet de 3 milliards de dirhams vise à désengorger le trafic dans la ville touristique.",
+              image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 1 jour", views: "9.4K", comments: 53 },
+            
+            { id: 24, category: "regions", title: "Fès : restauration de la médina classée au patrimoine mondial", 
+              content: "Un programme de restauration de la médina de Fès a été lancé avec un budget de 600 millions de dirhams. 27 sites historiques seront restaurés.",
+              image: "https://terra-maroc.com/wp-content/uploads/adobestock-416823319-1280x800.jpeg",
+              date: "Il y a 2 jours", views: "8.1K", comments: 42 },
+            
+            { id: 25, category: "regions", title: "Dakhla : nouveau port Atlantique en construction", 
+              content: "Le nouveau port Atlantique de Dakhla sera opérationnel en 2026. Ce projet stratégique vise à faire de Dakhla un hub économique régional.",
+              image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 3 jours", views: "7.6K", comments: 38 },
+            
+            { id: 26, category: "regions", title: "Marrakech : nouveau centre de congrès de classe mondiale", 
+              content: "Marrakech inaugurera en 2025 un nouveau centre de congrès de 30 000 m². Ce projet vise à renforcer la position de la ville comme destination MICE.",
+              image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 4 jours", views: "6.8K", comments: 31 },
+            
+            { id: 27, category: "economie", title: "Le secteur automobile marocain dépasse les 100 milliards de dirhams d'exportations", 
+              content: "Le secteur automobile marocain a réalisé un chiffre d'affaires record en 2023. Le pays est devenu le premier constructeur automobile d'Afrique.",
+              image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+              date: "Il y a 5 heures", views: "13.2K", comments: 78 },
+            
+            { id: 28, category: "politique", title: "Réforme de la justice : adoption de la nouvelle loi organique", 
+              content: "Le Parlement a adopté la nouvelle loi organique sur la réforme de la justice. Cette réforme vise à renforcer l'indépendance et l'efficacité du système judiciaire.",
+              image: "https://leseco.ma/wp-content/uploads/2025/12/Abdelouafi-Laftit.jpg",
+              date: "Il y a 6 heures", views: "11.7K", comments: 92 }
+        ];
+
+        // Variables globales
+        let currentFilter = 'all';
+        let currentView = 'grid';
+        let currentPage = 1;
+        const articlesPerPage = 6;
+        let searchQuery = '';
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mise à jour de la date
+            updateDate();
+            
+            // Générer les articles
+            renderArticles();
+            
+            // Générer la liste des tendances
+            renderTrendingList();
+            
+            // Mettre à jour les statistiques
+            updateStats();
+            
+            // Initialiser la météo
+            initWeather();
+            
+            // Ajouter les écouteurs d'événements
+            setupEventListeners();
+        });
+
+        // Mise à jour de la date
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('fr-FR', options);
+        }
+
+        // Rendre les articles
+        function renderArticles() {
+            const grid = document.getElementById('news-grid');
+            const pagination = document.getElementById('pagination');
+            
+            // Filtrer les articles
+            let filteredArticles = articles;
+            
+            if (currentFilter !== 'all') {
+                filteredArticles = articles.filter(article => article.category === currentFilter);
+            }
+            
+            // Recherche
+            if (searchQuery) {
+                filteredArticles = filteredArticles.filter(article => 
+                    article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    article.content.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+            
+            // Calculer la pagination
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            const startIndex = (currentPage - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const articlesToShow = filteredArticles.slice(startIndex, endIndex);
+            
+            // Vider le contenu existant
+            grid.innerHTML = '';
+            
+            // Rendre les articles
+            articlesToShow.forEach(article => {
+                const articleElement = createArticleElement(article);
+                grid.appendChild(articleElement);
+            });
+            
+            // Mettre à jour la classe de vue
+            grid.className = currentView === 'list' ? 'news-grid list-view' : 'news-grid';
+            
+            // Rendre la pagination
+            renderPagination(pagination, totalPages);
+            
+            // Mettre à jour le compteur d'articles
+            document.getElementById('articles-today').textContent = filteredArticles.length;
+        }
+
+        // Créer un élément d'article
+        function createArticleElement(article) {
+            const articleElement = document.createElement('article');
+            articleElement.className = 'news-card';
+            articleElement.dataset.id = article.id;
+            articleElement.dataset.category = article.category;
+            
+            if (currentView === 'list') {
+                articleElement.classList.add('list-view');
+            }
+            
+            const categoryNames = {
+                'politique': 'Politique',
+                'economie': 'Économie',
+                'societe': 'Société',
+                'sports': 'Sports',
+                'culture': 'Culture',
+                'international': 'International',
+                'regions': 'Régions'
+            };
+            
+            articleElement.innerHTML = `
+                <div class="news-image" style="background-image: url('${article.image}')">
+                    ${article.trending ? '<span class="image-overlay">Trending</span>' : ''}
+                </div>
+                <div class="news-content">
+                    <span class="news-category">${categoryNames[article.category] || article.category}</span>
+                    <h3>${article.title}</h3>
+                    <p>${article.content.substring(0, 100)}...</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> ${article.date}</span>
+                        <span><i class="far fa-comment"></i> ${article.comments}</span>
+                        <span><i class="far fa-eye"></i> ${article.views}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Ajouter un écouteur d'événement pour ouvrir l'article
+            articleElement.addEventListener('click', function() {
+                openArticleModal(article);
+            });
+            
+            return articleElement;
+        }
+
+        // Rendre la pagination
+        function renderPagination(paginationElement, totalPages) {
+            paginationElement.innerHTML = '';
+            
+            if (totalPages <= 1) return;
+            
+            // Bouton précédent
+            const prevButton = document.createElement('button');
+            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderArticles();
+                }
+            });
+            paginationElement.appendChild(prevButton);
+            
+            // Pages
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.addEventListener('click', function() {
+                    currentPage = i;
+                    renderArticles();
+                });
+                paginationElement.appendChild(pageButton);
+            }
+            
+            // Bouton suivant
+            const nextButton = document.createElement('button');
+            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderArticles();
+                }
+            });
+            paginationElement.appendChild(nextButton);
+        }
+
+        // Rendre la liste des tendances
+        function renderTrendingList() {
+            const trendingList = document.getElementById('trending-list');
+            trendingList.innerHTML = '';
+            
+            // Filtrer les articles tendance
+            const trendingArticles = articles.filter(article => article.trending).slice(0, 5);
+            
+            trendingArticles.forEach((article, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <a href="#" data-id="${article.id}">
+                        <span class="trending-number">${index + 1}</span>
+                        <span>${article.title}</span>
+                    </a>
+                `;
+                
+                listItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const articleId = parseInt(this.querySelector('a').dataset.id);
+                    const article = articles.find(a => a.id === articleId);
+                    if (article) {
+                        openArticleModal(article);
+                    }
+                });
+                
+                trendingList.appendChild(listItem);
+            });
+        }
+
+        // Mettre à jour les statistiques
+        function updateStats() {
+            // Simuler des lecteurs en ligne
+            const onlineReaders = 1000 + Math.floor(Math.random() * 500);
+            document.getElementById('online-readers').textContent = onlineReaders.toLocaleString();
+            
+            // Articles ce mois (tous les articles)
+            document.getElementById('articles-month').textContent = articles.length;
+        }
+
+        // Initialiser la météo
+        function initWeather() {
+            const weatherIcons = {
+                'sunny': 'fas fa-sun',
+                'cloudy': 'fas fa-cloud',
+                'rainy': 'fas fa-cloud-rain',
+                'stormy': 'fas fa-bolt'
+            };
+            
+            // Changer la météo toutes les 30 secondes (pour la démonstration)
+            setInterval(() => {
+                const conditions = ['sunny', 'cloudy', 'rainy', 'stormy'];
+                const randomCondition = conditions[Math.floor(Math.random() * conditions.length)];
+                const temp = Math.floor(Math.random() * 15) + 18; // Entre 18 et 32°C
+                
+                document.getElementById('weather-icon').className = weatherIcons[randomCondition];
+                document.getElementById('temperature').textContent = `${temp}°C`;
+                
+                const descriptions = {
+                    'sunny': 'Ensoleillé',
+                    'cloudy': 'Nuageux',
+                    'rainy': 'Pluvieux',
+                    'stormy': 'Orageux'
+                };
+                document.getElementById('weather-desc').textContent = descriptions[randomCondition];
+            }, 30000);
+        }
+
+        // Ouvrir la modal d'article
+        function openArticleModal(article) {
+            const modal = document.getElementById('article-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            const categoryNames = {
+                'politique': 'Politique',
+                'economie': 'Économie',
+                'societe': 'Société',
+                'sports': 'Sports',
+                'culture': 'Culture',
+                'international': 'International',
+                'regions': 'Régions'
+            };
+            
+            modalTitle.textContent = article.title;
+            
+            modalBody.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 3px; font-size: 0.8rem;">
+                        ${categoryNames[article.category] || article.category}
+                    </span>
+                    <span style="margin-left: 15px; color: #666;">
+                        <i class="far fa-clock"></i> ${article.date}
+                    </span>
+                </div>
+                
+                <img src="${article.image}" alt="${article.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;">
+                
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px;">
+                    ${article.content}
+                </p>
+                
+                <div style="display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid #eee; color: #666;">
+                    <div>
+                        <i class="far fa-eye"></i> ${article.views} vues
+                    </div>
+                    <div>
+                        <i class="far fa-comment"></i> ${article.comments} commentaires
+                    </div>
+                    <div>
+                        <i class="fas fa-share-alt"></i> Partager
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+            
+            // Empêcher le défilement de l'arrière-plan
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fermer la modal
+        function closeArticleModal() {
+            const modal = document.getElementById('article-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Configurer les écouteurs d'événements
+        function setupEventListeners() {
+            // Filtres de navigation principale
+            document.querySelectorAll('.main-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Mettre à jour l'état actif
+                    document.querySelectorAll('.main-nav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Appliquer le filtre
+                    const filter = this.dataset.filter;
+                    currentFilter = filter;
+                    currentPage = 1;
+                    
+                    // Mettre à jour les boutons de filtre
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.filter === filter) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    renderArticles();
+                });
+            });
+            
+            // Filtres de la barre de filtres
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Mettre à jour l'état actif
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Appliquer le filtre
+                    currentFilter = this.dataset.filter;
+                    currentPage = 1;
+                    
+                    // Mettre à jour la navigation principale
+                    document.querySelectorAll('.main-nav a').forEach(a => {
+                        a.classList.remove('active');
+                        if (a.dataset.filter === currentFilter) {
+                            a.classList.add('active');
+                        }
+                    });
+                    
+                    renderArticles();
+                });
+            });
+            
+            // Boutons de vue
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Mettre à jour l'état actif
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Changer la vue
+                    currentView = this.dataset.view;
+                    renderArticles();
+                });
+            });
+            
+            // Recherche
+            document.getElementById('search-btn').addEventListener('click', performSearch);
+            document.getElementById('search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Newsletter
+            document.getElementById('subscribe-btn').addEventListener('click', function() {
+                const email = document.getElementById('newsletter-email').value;
+                if (email && validateEmail(email)) {
+                    alert(`Merci de vous être abonné à notre newsletter ! Un email de confirmation a été envoyé à ${email}`);
+                    document.getElementById('newsletter-email').value = '';
+                } else {
+                    alert('Veuillez entrer une adresse email valide.');
+                }
+            });
+            
+            // Fermer la modal
+            document.getElementById('close-modal').addEventListener('click', closeArticleModal);
+            document.getElementById('article-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeArticleModal();
+                }
+            });
+            
+            // Articles en vedette secondaires
+            document.querySelectorAll('.secondary-news').forEach(item => {
+                item.addEventListener('click', function() {
+                    const articleId = parseInt(this.dataset.id);
+                    const article = articles.find(a => a.id === articleId);
+                    if (article) {
+                        openArticleModal(article);
+                    }
+                });
+            });
+            
+            // Liens du footer pour les catégories
+            document.querySelectorAll('.footer-links a[data-filter]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const filter = this.dataset.filter;
+                    currentFilter = filter;
+                    currentPage = 1;
+                    
+                    // Mettre à jour les boutons actifs
+                    document.querySelectorAll('.filter-btn, .main-nav a').forEach(el => {
+                        el.classList.remove('active');
+                        if (el.dataset.filter === filter) {
+                            el.classList.add('active');
+                        }
+                    });
+                    
+                    renderArticles();
+                    
+                    // Faire défiler vers le haut
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        }
+
+        // Effectuer une recherche
+        function performSearch() {
+            searchQuery = document.getElementById('search-input').value.trim();
+            currentPage = 1;
+            renderArticles();
+            
+            // Afficher le nombre de résultats
+            if (searchQuery) {
+                const filteredArticles = articles.filter(article => 
+                    article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    article.content.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+                
+                if (filteredArticles.length === 0) {
+                    alert(`Aucun résultat trouvé pour "${searchQuery}"`);
+                } else {
+                    // Faire défiler vers les résultats
+                    document.querySelector('.news-content').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        // Valider l'email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
